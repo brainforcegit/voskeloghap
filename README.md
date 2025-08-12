@@ -1,13 +1,14 @@
-# React + Vite
+Լողափը գտնվում է Սևան֊Գավառ ճանապարհին։ Գիշերակացի համար առաջարկում են քոթեջներ, որտեղ կան կոմունալ բոլոր հարմարությունները։ 
+4-5 անձի համար նախատեսված քոթեջն ունի 2 ննջարան, հյուրասենյակ, սանհանգույց լոգարանով, սառնարան, հեռուստացույց, wi-fi։
+Մինչև 8 անձի համար նախատեսված քոթեջներում առկա են 3 ննջարան, մեծ հյուրասենյակ` 2 բազմոցով, սանհանգույց լոգարանով, սառնարան հեռուստացույց, wi-fi։ 
+Բոլոր քոթեջների հետ կարող են տրամադրել տաղավար։
+Քոթեջները գտնվում են ափից մինչև 50մ հեռավորության վրա։ Ափին սպիտակ ավազ է։
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Արժեք
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+4 ննջ. մինչև 10անձ- 55000՝
 
-## Expanding the ESLint configuration
+3ննջ. մինչև 8 անձ- 45000
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# voskeloghap
+2ննջ. 5-6 անձ - 25000
