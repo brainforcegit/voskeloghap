@@ -1,103 +1,85 @@
-import { useEffect, useState } from "react";
-import { addProduct, getProducts, saveProducts, getReservations } from "../lib/storage.js";
-import { useNavigate } from "react-router-dom";
-
-const empty = { title:"", price:"", description:"", available:true, image:"" };
+import { useState } from "react";
 
 export default function AdminDashboard() {
-    const [form, setForm] = useState(empty);
-    const [list, setList] = useState([]);
-    const [reservations, setReservations] = useState([]);
-    const nav = useNavigate();
+    const [products, setProducts] = useState(
+        JSON.parse(localStorage.getItem("vl_products") || "[]")
+    );
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [available, setAvailable] = useState(true);
+    const [image, setImage] = useState("");
 
-    useEffect(() => {
-        setList(getProducts());
-        setReservations(getReservations());
-    }, []);
+    const saveProducts = (newProducts) => {
+        setProducts(newProducts);
+        localStorage.setItem("vl_products", JSON.stringify(newProducts));
+    };
 
-    function submit(e) {
-        e.preventDefault();
-        const priceNum = form.price ? Number(form.price) : 0;
-        addProduct({ ...form, price: priceNum });
-        setList(getProducts());
-        setForm(empty);
-    }
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
 
-    function toggleAvail(id) {
-        const upd = list.map(p => p.id === id ? { ...p, available: !p.available } : p);
-        saveProducts(upd);
-        setList(upd);
-    }
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImage(reader.result); // base64
+        };
+        reader.readAsDataURL(file);
+    };
 
-    function remove(id) {
-        const upd = list.filter(p => p.id !== id);
-        saveProducts(upd);
-        setList(upd);
-    }
+    const addProduct = () => {
+        if (!name || !price) return alert("Введите название и цену");
+        const newProduct = { name, price, available, image };
+        saveProducts([...products, newProduct]);
+        setName("");
+        setPrice("");
+        setAvailable(true);
+        setImage("");
+    };
 
-    function logout() {
-        localStorage.removeItem("vl_admin_token");
-        nav("/admin");
-    }
+    const deleteProduct = (index) => {
+        const updated = products.filter((_, i) => i !== index);
+        saveProducts(updated);
+    };
 
     return (
-        <div style={{maxWidth:1000, margin:"24px auto", padding:"0 12px"}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <h2>Admin Dashboard</h2>
-                <button onClick={logout}>Выйти</button>
-            </div>
+        <div style={{ maxWidth: 600, margin: "24px auto" }}>
+            <h2>Админ-панель</h2>
+            <input
+                placeholder="Название"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
+            <input
+                placeholder="Цена"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+            />
+            <label>
+                <input
+                    type="checkbox"
+                    checked={available}
+                    onChange={(e) => setAvailable(e.target.checked)}
+                />
+                Доступно
+            </label>
+            <input type="file" accept="image/*" onChange={handleImageUpload} />
 
-            <h3>Добавить товар/услугу</h3>
-            <form onSubmit={submit} style={{display:"grid", gap:8, gridTemplateColumns:"1fr 1fr"}}>
-                <input placeholder="Название" value={form.title} onChange={e=>setForm({...form,title:e.target.value})}/>
-                <input placeholder="Цена (AMD)" type="number" value={form.price} onChange={e=>setForm({...form,price:e.target.value})}/>
-                <input placeholder="Картинка (URL)" value={form.image} onChange={e=>setForm({...form,image:e.target.value})}/>
-                <select value={form.available ? "1":"0"} onChange={e=>setForm({...form,available:e.target.value==="1"})}>
-                    <option value="1">Доступно</option>
-                    <option value="0">Недоступно</option>
-                </select>
-                <textarea placeholder="Описание" style={{gridColumn:"1 / -1"}} rows={3}
-                          value={form.description} onChange={e=>setForm({...form,description:e.target.value})}/>
-                <button style={{gridColumn:"1 / -1"}}>Сохранить</button>
-            </form>
+            {image && (
+                <div>
+                    <img src={image} alt="preview" style={{ maxWidth: "100px", marginTop: "8px" }} />
+                </div>
+            )}
 
-            <h3 style={{marginTop:24}}>Список</h3>
-            <table style={{width:"100%", borderCollapse:"collapse"}}>
-                <thead>
-                <tr><th align="left">Название</th><th>Цена</th><th>Статус</th><th>Действия</th></tr>
-                </thead>
-                <tbody>
-                {list.map(p=>(
-                    <tr key={p.id}>
-                        <td>{p.title}</td>
-                        <td align="center">{p.price}</td>
-                        <td align="center">{p.available ? "✅" : "⛔"}</td>
-                        <td align="center">
-                            <button onClick={()=>toggleAvail(p.id)}>Переключить</button>{" "}
-                            <button onClick={()=>remove(p.id)}>Удалить</button>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            <button onClick={addProduct}>Добавить товар</button>
 
-            <h3 style={{marginTop:24}}>Брони</h3>
-            <table style={{width:"100%", borderCollapse:"collapse"}}>
-                <thead>
-                <tr><th align="left">Услуга</th><th>Имя</th><th>Телефон</th><th>Когда</th><th>Создано</th></tr>
-                </thead>
-                <tbody>
-                {reservations.map(r=>(
-                    <tr key={r.id}>
-                        <td>{r.productTitle}</td>
-                        <td>{r.name}</td>
-                        <td>{r.phone}</td>
-                        <td>{r.when}</td>
-                        <td>{new Date(r.createdAt).toLocaleString()}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            <hr />
+            <h3>Список товаров</h3>
+            {products.map((p, i) => (
+                <div key={i} style={{ borderBottom: "1px solid #ccc", marginBottom: "8px" }}>
+                    {p.image && <img src={p.image} alt={p.name} style={{ maxWidth: "80px" }} />}
+                    <div>{p.name} — {p.price} ֏ {p.available ? "✅" : "❌"}</div>
+                    <button onClick={() => deleteProduct(i)}>Удалить</button>
+                </div>
+            ))}
         </div>
     );
 }

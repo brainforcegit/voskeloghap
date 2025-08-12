@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
+import Catalog from "./pages/Catalog.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
+import Header from "./components/Header.jsx";
+import MapEmbed from "./components/MapEmbed.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+    return (
+        <>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Catalog />} />
+                <Route path="/admin" element={<AdminLogin />} />
+                <Route path="/admin/dashboard" element={<AdminOnly><AdminDashboard/></AdminOnly>} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+            <div id="map" style={{ marginTop: "40px" }}>
+              <MapEmbed/>
+            </div>
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+            <div id="about" style={{ padding: "20px", background: "#f9f9f9" }}>
+                <h2>О нас</h2>
+                <p>Voske Loxap — это золотой пляж в Цовазарде, где можно насладиться чистым озером и комфортом. Мы предлагаем аренду зонтов, лежаков и другие услуги для вашего отдыха.</p>
+            </div>
+</>
+    );
 }
 
-export default App
+function AdminOnly({ children }) {
+    const token = localStorage.getItem("vl_admin_token");
+    const navigate = useNavigate();
+    if (!token) {
+        navigate("/admin");
+        return null;
+    }
+    return children;
+}
