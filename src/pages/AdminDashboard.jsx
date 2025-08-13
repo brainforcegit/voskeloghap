@@ -1,6 +1,10 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 export default function AdminDashboard() {
+    const nav = useNavigate();
+
+
     const [products, setProducts] = useState(
         JSON.parse(localStorage.getItem("vl_products") || "[]")
     );
@@ -9,10 +13,22 @@ export default function AdminDashboard() {
     const [available, setAvailable] = useState(true);
     const [image, setImage] = useState("");
 
+
+    useEffect(() => {
+        const token =  localStorage.getItem("vl_admin_token");
+        redirect(token)
+    }, []);
+
     const saveProducts = (newProducts) => {
         setProducts(newProducts);
         localStorage.setItem("vl_products", JSON.stringify(newProducts));
     };
+    function redirect(token) {
+
+        if (!token) {
+            nav("/signin");
+        }
+    }
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];

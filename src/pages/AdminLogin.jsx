@@ -10,7 +10,7 @@ export default function AdminLogin() {
         // простой пароль — поменяйте на свой
         if (pwd === "voske123") {
             localStorage.setItem("vl_admin_token", "ok");
-            nav("/admin/dashboard");
+            nav("/admin");
         } else {
             alert("Неверный пароль");
         }
