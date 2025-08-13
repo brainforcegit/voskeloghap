@@ -41,7 +41,7 @@ export default function AdminDashboard() {
     };
 
     return (
-        <div style={{ maxWidth: 600, margin: "24px auto" }}>
+        <div style={{ maxWidth: 600, margin: "24px auto" ,display: "flex" ,justifyContent: "center" ,flexDirection: "column" }}>
             <h2>Админ-панель</h2>
             <input
                 placeholder="Название"
@@ -73,6 +73,7 @@ export default function AdminDashboard() {
 
             <hr />
             <h3>Список товаров</h3>
+            <div style={{ display: "flex", justifyContent: "start", alignItems: "center",gap: "26px" }}>
             {products.map((p, i) => (
                 <div key={i} style={{ borderBottom: "1px solid #ccc", marginBottom: "8px" }}>
                     {p.image && <img src={p.image} alt={p.name} style={{ maxWidth: "80px" }} />}
@@ -80,6 +81,7 @@ export default function AdminDashboard() {
                     <button onClick={() => deleteProduct(i)}>Удалить</button>
                 </div>
             ))}
+        </div>
         </div>
     );
 }

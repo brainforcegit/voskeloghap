@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MapEmbed from "../components/MapEmbed.jsx";
 
 export default function Catalog() {
     const products = JSON.parse(localStorage.getItem("vl_products") || "[]");
@@ -37,6 +38,16 @@ export default function Catalog() {
                     </div>
                 </div>
             )}
+            <div id="about" style={{ margin: "24px auto" ,background: "#fff"}}>
+                <div id="map" style={{ padding: "12px", background: "#f9f9f9" }}>    <MapEmbed/></div>
+                <div id="about" style={{ minWidth:"450px",padding: "12px", background: "#f9f9f9" }}>
+                    <p>Լողափը գտնվում է Սևան֊Գավառ ճանապարհին։ Գիշերակացի համար առաջարկում են քոթեջներ, որտեղ կան կոմունալ բոլոր հարմարությունները։
+                        4-5 անձի համար նախատեսված քոթեջն ունի 2 ննջարան, հյուրասենյակ, սանհանգույց լոգարանով, սառնարան, հեռուստացույց, wi-fi։
+                        Մինչև 8 անձի համար նախատեսված քոթեջներում առկա են 3 ննջարան, մեծ հյուրասենյակ` 2 բազմոցով, սանհանգույց լոգարանով, սառնարան հեռուստացույց, wi-fi։
+                        Բոլոր քոթեջների հետ կարող են տրամադրել տաղավար։
+                        Քոթեջները գտնվում են ափից մինչև 50մ հեռավորության վրա։ Ափին սպիտակ ավազ է։.</p>
+                </div>
+            </div>
         </div>
     );
 }

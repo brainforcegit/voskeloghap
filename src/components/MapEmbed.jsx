@@ -1,5 +1,5 @@
 export default function MapEmbed() {
-    const q = encodeURIComponent("F398+MR2 Tsovazard Armenia");
+    const q = encodeURIComponent("F398+MR2, Tsovazard, Armenia");
     const src = `https://www.google.com/maps?q=${q}&output=embed`;
     return (
         <div style={{marginTop:16}}>

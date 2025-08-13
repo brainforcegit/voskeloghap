@@ -9,7 +9,7 @@ export default function Header() {
             justifyContent: "space-between",
             alignItems: "center"
         }}>
-            <h1 style={{ margin: 0 }}>Voske Loxap</h1>
+            <Link to={'/'}><h1>Voske Loxap</h1></Link>
             <nav style={{ display: "flex", gap: "16px" }}>
                 <Link to="/">Каталог</Link>
                 <a href="#map">Карта</a>

@@ -11,18 +11,10 @@ export default function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Catalog />} />
-                <Route path="/admin" element={<AdminLogin />} />
-                <Route path="/admin/dashboard" element={<AdminOnly><AdminDashboard/></AdminOnly>} />
+                <Route path="/admin" element={<AdminOnly><AdminDashboard/></AdminOnly>} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-            <div id="map" style={{ marginTop: "40px" }}>
-              <MapEmbed/>
-            </div>
 
-            <div id="about" style={{ padding: "20px", background: "#f9f9f9" }}>
-                <h2>О нас</h2>
-                <p>Voske Loxap — это золотой пляж в Цовазарде, где можно насладиться чистым озером и комфортом. Мы предлагаем аренду зонтов, лежаков и другие услуги для вашего отдыха.</p>
-            </div>
 </>
     );
 }
