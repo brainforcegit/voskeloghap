@@ -9,11 +9,11 @@ export default function Header() {
             justifyContent: "space-between",
             alignItems: "center"
         }}>
-            <Link to={'/'}><h1>Voske Loxap</h1></Link>
+            <Link to={'/'}><h1>Ոսկյա լողափ</h1></Link>
             <nav style={{ display: "flex", gap: "16px" }}>
-                <Link to="/">Каталог</Link>
-                <a href="#map">Карта</a>
-                <a href="#about">О нас</a>
+                <Link to="/">Կատալոգ</Link>
+                <a href="#map">Քարտեզ</a>
+                <a href="#about">Մեր մասին </a>
             </nav>
         </header>
     );
